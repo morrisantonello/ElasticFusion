@@ -34,7 +34,14 @@ MainController::MainController(int argc, char * argv[])
     std::string calibrationFile;
     Parse::get().arg(argc, argv, "-cal", calibrationFile);
 
-    Resolution::getInstance(640, 480);
+    int width = 640;
+    Parse::get().arg(argc, argv, "-width", width);
+
+    int height = 480;
+    Parse::get().arg(argc, argv, "-height", height);
+
+    Resolution::getInstance(width, height);
+    //Resolution::getInstance(640, 480);
 
     if(calibrationFile.length())
     {

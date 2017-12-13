@@ -1,6 +1,8 @@
 # ElasticFusion #
 
-Real-time dense visual SLAM system capable of capturing comprehensive dense globally consistent surfel-based maps of room scale environments explored using an RGB-D camera.
+This is a fork of ElasticFusion: Real-time dense visual SLAM system capable of capturing comprehensive dense globally consistent surfel-based maps of room scale environments explored using an RGB-D camera.
+
+This fork provides useful tools to make it work with a Kinect One V2 sensor and ROS bags.
 
 # Related Publications #
 Please cite this work if you make use of our system in any of your own endeavors:
@@ -111,7 +113,11 @@ The GUI (*ElasticFusion*) can take a bunch of parameters when launching it from 
 
 Essentially by default *./ElasticFusion* will try run off an attached ASUS sensor live. You can provide a .klg log file instead with the -l parameter. You can capture .klg format logs using either [Logger1](https://github.com/mp3guy/Logger1) or [Logger2](https://github.com/mp3guy/Logger2). 
 
-# 5. How do I just use the Core API? #
+# 5. How to do I use it with a Kinect One V2?
+
+Given a .klg log file containing frames acquired from a Kinect One V2, use *./ElasticFusion -l your_log_file.klg -width 960 -height 540 -cal kinect2_cal.txt*.
+
+# 6. How do I just use the Core API? #
 The libefusion.so shared library which gets built by the Core is what you want to link against.
 
 An example of this can be seen in the GUI code. Essentially all you need to do is utilise the provided Findefusion.cmake file in GUI/src and include the following in your CMakeLists.txt file:
@@ -147,7 +153,7 @@ Make an ElasticFusion object and start using it:
 
 See the source code of MainController.cpp in the GUI source to see more usage.
 
-# 6. Datasets #
+# 7. Datasets #
 
 We have provided a sample dataset which you can run easily with ElasticFusion for download [here](http://www.doc.ic.ac.uk/~sleutene/datasets/elasticfusion/dyson_lab.klg). Launch it as follows:
 
@@ -155,10 +161,10 @@ We have provided a sample dataset which you can run easily with ElasticFusion fo
 ./ElasticFusion -l dyson_lab.klg
 ```
 
-# 7. License #
+# 8. License #
 ElasticFusion is freely available for non-commercial use only.  Full terms and conditions which govern its use are detailed [here](http://www.imperial.ac.uk/dyson-robotics-lab/downloads/elastic-fusion/elastic-fusion-license/) and in the LICENSE.txt file.
 
-# 8. FAQ #
+# 9. FAQ #
 ***What are the hardware requirements?***
 
 A [very fast nVidia GPU (3.5TFLOPS+)](https://en.wikipedia.org/wiki/List_of_Nvidia_graphics_processing_units#GeForce_900_Series), and a fast CPU (something like an i7). If you want to use a non-nVidia GPU you can rewrite the tracking code or substitute it with something else, as the rest of the pipeline is actually written in the OpenGL Shading Language. 
