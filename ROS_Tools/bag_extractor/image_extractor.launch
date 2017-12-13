@@ -1,19 +1,26 @@
 <launch>
-	
+   
+   <!-- Arguments to be passed in -->
+   <arg name="bag_name" doc="Path to the bag to be extracted. Usage: bag_name:=path/to/bag.bag" /> 
+   <arg name="scene_name"  doc="Name for the scene. Usage: scene_name:=coroma000" /> 
+   <arg name="output_folder"  doc="Folder in which save output images. Usage: output_folder:=path/to/folder" /> 
+   <!-- arg name="bag_name" default="/home/orobot/coroma_acquisitions/coroma006_tilt30.bag" /--> 
+   <!-- arg name="output_folder" default="/media/orobot/iaslab_morris/coroma_acquisitions/coroma006_tilt30" /-->
+
    <!--node pkg="rosbag" type="play" name="rosbag" args="/media/morris/09FC740D25D520DE/dataset/elasticfusion/half_rate_two_diff_head.bag -r 0.1"/-->
-   <node pkg="rosbag" type="play" name="rosbag" args="/media/morris/09FC740D25D520DE/dataset/elasticfusion/lab_0/subset.bag -r 0.1"/>
+   <node pkg="rosbag" type="play" name="rosbag" args="$(arg bag_name) -r 0.1"/>
 
    <arg name="sensor_name" default="kinect2_head" />
-	
+   
    <node name="extract" pkg="image_view" type="extract_images" respawn="false" output="screen" cwd="node">
    <remap from="image" to="/kinect2_head/depth_lowres/image"/>
-   <param name="filename_format" value="/media/morris/09FC740D25D520DE/dataset/elasticfusion/lab_0/depth/scene_00_%04i_rs.png"/>
+   <param name="filename_format" value="$(arg output_folder)/depth/$(arg scene_name)_%04i.png"/>
    <param name="sec_per_frame" value="0.00001" />
    </node>
 
    <node name="extract2" pkg="image_view" type="extract_images" respawn="false" output="screen" cwd="node">
    <remap from="image" to="/kinect2_head/rgb_lowres/image"/>
-   <param name="filename_format" value="/media/morris/09FC740D25D520DE/dataset/elasticfusion/lab_0/rgb/scene_00_%04i_rs.png"/>
+   <param name="filename_format" value="$(arg output_folder)/rgb/$(arg scene_name)_%04i.png"/>
    <param name="sec_per_frame" value="0.00001" />
    </node>
 
