@@ -227,6 +227,15 @@ void MainController::launch()
 
 void MainController::run()
 {
+    int count = 0;
+    std::ofstream outfile ("./ef_trajectory.log");
+    std::ofstream outfile_inv ("./ef_trajectory_inverse.log");
+    std::ofstream outfile_mul1 ("./ef_trajectory_mul1.log");
+    std::ofstream outfile_mul2 ("./ef_trajectory_mul2.log");
+    std::ofstream outfile_mul3 ("./ef_trajectory_mul3.log");
+    Eigen::Matrix4d first_m = Eigen::Matrix4d::Identity();
+    Eigen::Matrix4d previous_m = Eigen::Matrix4d::Identity();
+    Eigen::Matrix4d previous_m2 = Eigen::Matrix4d::Identity();
     while(!pangolin::ShouldQuit() && !((!logReader->hasMore()) && quiet) && !(eFusion->getTick() == end && quiet))
     {
         if(!gui->pause->Get() || pangolin::Pushed(*gui->step))
@@ -329,6 +338,31 @@ void MainController::run()
                  y(0),  y(1),  y(2),  -(y.dot(eye)),
                  z(0),  z(1),  z(2),  -(z.dot(eye)),
                     0,     0,     0,              1;
+
+            if (count == 0)
+                first_m = m;
+
+            previous_m = previous_m * m;
+            previous_m2 = m * previous_m2;
+
+            std::cout << "Eigen::Matrix4d m: " << m << std::endl;
+            
+            outfile << count << " " << count << " " << count+1 << std::endl;
+            outfile << m << std::endl;
+            
+            outfile_inv << count << " " << count << " " << count+1 << std::endl;
+            outfile_inv << m.inverse() << std::endl;
+
+            outfile_mul1 << count << " " << count << " " << count+1 << std::endl;
+            outfile_mul1 << m * first_m.inverse() << std::endl;
+        
+            outfile_mul2 << count << " " << count << " " << count+1 << std::endl;
+            outfile_mul2 << first_m.inverse() * m << std::endl;
+
+            outfile_mul3 << count << " " << count << " " << count+1 << std::endl;
+            outfile_mul3 << (first_m.inverse() * m).inverse() << std::endl;
+
+            count++;            
 
             memcpy(&mv.m[0], m.data(), sizeof(Eigen::Matrix4d));
 
@@ -570,4 +604,10 @@ void MainController::run()
 
         TOCK("GUI");
     }
+
+    outfile.close();
+    outfile_inv.close();
+    outfile_mul1.close();
+    outfile_mul2.close();
+    outfile_mul3.close();
 }
