@@ -63,11 +63,6 @@ All parameters are required.
 Should place **associations.txt** under working directory.
 About how to generate associations.txt please read "Related files" section.
 
-## Download ##
-### ICL-NUIM ###
-Download the file provided by [ICL-NUIM](https://www.doc.ic.ac.uk/~ahanda/VaFRIC/iclnuim.html)
-(Living Room 'lr kt0') => (TUM RGB-D Compatible PNGs)
-
 ## Usage with Kinect One V2 ##
 Create your association file specifying the number of entries:
 ```bash
@@ -82,6 +77,11 @@ Run conversion:
 cd build
 ./pngtoklg -w your_dataset_dir -o ./output.klg
 ```
+
+## Download ##
+### ICL-NUIM ###
+Download the file provided by [ICL-NUIM](https://www.doc.ic.ac.uk/~ahanda/VaFRIC/iclnuim.html)
+(Living Room 'lr kt0') => (TUM RGB-D Compatible PNGs)
 
 ### TUM ###
  [TUM RGB-D png dataset](http://vision.in.tum.de/data/datasets/rgbd-dataset/download#freiburg1_desk)
