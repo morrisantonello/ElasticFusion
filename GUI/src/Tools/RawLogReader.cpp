@@ -17,10 +17,15 @@
  */
 
 #include "RawLogReader.h"
+#include "sstream"
+#include "string"
+#include <iostream>
+#include <fstream>
 
 RawLogReader::RawLogReader(std::string file, bool flipColors)
  : LogReader(file, flipColors)
 {
+    std::cout << "file.c_str() " << file.c_str() << std::endl;
     assert(pangolin::FileExists(file.c_str()));
 
     fp = fopen(file.c_str(), "rb");
@@ -116,6 +121,27 @@ void RawLogReader::getCore()
             std::swap(rgb[i + 0], rgb[i + 2]);
         }
     }
+
+    std::stringstream ss1;
+    ss1 << "./depth/" << currentFrame << "_depth_frame.txt";
+    std::ofstream depthfile (ss1.str());
+    for (int i = 0; i < Resolution::getInstance().numPixels(); ++i)
+    {
+        //depthfile << static_cast<unsigned>(depth[i]) << std::endl;
+    }
+    depthfile.close();
+
+    std::stringstream ss2;
+    ss2.clear();
+    ss2 << "./rgb/" << currentFrame << "_rgb_frame.txt";
+    std::ofstream rgbfile (ss2.str());
+    for (int i = 0; i < Resolution::getInstance().numPixels() * 3; i=i+3)
+    {
+        //rgbfile << int(rgb[i + 0]) << " "
+        //        << int(rgb[i + 1]) << " "
+        //        << int(rgb[i + 2]) << std::endl;
+    }
+    rgbfile.close();
 
     currentFrame++;
 }
