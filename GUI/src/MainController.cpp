@@ -34,6 +34,9 @@ MainController::MainController(int argc, char * argv[])
     std::string calibrationFile;
     Parse::get().arg(argc, argv, "-cal", calibrationFile);
 
+    Parse::get().arg(argc, argv, "-tf", tfFile);
+    //std::cout << "tfFile " << tfFile << std::endl;
+
     int width = 640;
     Parse::get().arg(argc, argv, "-width", width);
 
@@ -228,11 +231,17 @@ void MainController::launch()
 void MainController::run()
 {
     int count = 0;
-    std::ofstream outfile ("./ef_trajectory.log");
-    std::ofstream outfile_inv ("./ef_trajectory_inverse.log");
-    std::ofstream outfile_mul1 ("./ef_trajectory_mul1.log");
-    std::ofstream outfile_mul2 ("./ef_trajectory_mul2.log");
-    std::ofstream outfile_mul3 ("./ef_trajectory_mul3.log");
+
+    std::string outfilename = "./" + tfFile + "_ef_trajectory.log";
+    std::ofstream outfile (outfilename);
+    outfilename = "./" + tfFile + "_ef_trajectory_inverse.log";
+    std::ofstream outfile_inv (outfilename);
+    outfilename = "./" + tfFile + "_ef_trajectory_mul1.log";
+    std::ofstream outfile_mul1 (outfilename);
+    outfilename = "./" + tfFile + "_ef_trajectory_mul2.log";
+    std::ofstream outfile_mul2 (outfilename);
+    outfilename = "./" + tfFile + "_ef_trajectory_mul3.log";
+    std::ofstream outfile_mul3 (outfilename);
     Eigen::Matrix4d first_m = Eigen::Matrix4d::Identity();
     Eigen::Matrix4d previous_m = Eigen::Matrix4d::Identity();
     Eigen::Matrix4d previous_m2 = Eigen::Matrix4d::Identity();
@@ -345,7 +354,7 @@ void MainController::run()
             previous_m = previous_m * m;
             previous_m2 = m * previous_m2;
 
-            std::cout << "Eigen::Matrix4d m: " << m << std::endl;
+            //std::cout << "Eigen::Matrix4d m: " << m << std::endl;
             
             outfile << count << " " << count << " " << count+1 << std::endl;
             outfile << m << std::endl;
