@@ -59,7 +59,16 @@ All parameters are required.
 >For more **scale factor** detail, please reference: 
 >http://vision.in.tum.de/data/datasets/rgbd-dataset/file_formats#intrinsic_camera_calibration_of_the_kinect
 
-# Usage with Kinect One V2#
+## Prerequirement ##
+Should place **associations.txt** under working directory.
+About how to generate associations.txt please read "Related files" section.
+
+## Download ##
+### ICL-NUIM ###
+Download the file provided by [ICL-NUIM](https://www.doc.ic.ac.uk/~ahanda/VaFRIC/iclnuim.html)
+(Living Room 'lr kt0') => (TUM RGB-D Compatible PNGs)
+
+## Usage with Kinect One V2 ##
 Create your association file specifying the number of entries:
 ```bash
 python create_association_file.py 8090
@@ -73,15 +82,6 @@ Run conversion:
 cd build
 ./pngtoklg -w your_dataset_dir -o ./output.klg
 ```
-
-## Prerequirement##
-Should place **associations.txt** under working directory.
-About how to generate associations.txt please read "Related files" section.
-
-## Download ##
-### ICL-NUIM ###
-Download the file provided by [ICL-NUIM](https://www.doc.ic.ac.uk/~ahanda/VaFRIC/iclnuim.html)
-(Living Room 'lr kt0') => (TUM RGB-D Compatible PNGs)
 
 ### TUM ###
  [TUM RGB-D png dataset](http://vision.in.tum.de/data/datasets/rgbd-dataset/download#freiburg1_desk)
