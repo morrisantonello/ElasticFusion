@@ -115,7 +115,7 @@ Essentially by default *./ElasticFusion* will try run off an attached ASUS senso
 
 # 5. How to do I use it with a Kinect One V2?
 
-Given a .klg log file containing frames acquired from a Kinect One V2, use *./ElasticFusion -l your_log_file.klg -width 960 -height 540 -cal kinect2_cal.txt*.
+Given a .klg log file containing frames acquired from a Kinect One V2, use *./ElasticFusion -l your_log_file.klg -width 960 -height 540 -cal ../config/kinect2_cal.txt*.
 
 # 6. How do I just use the Core API? #
 The libefusion.so shared library which gets built by the Core is what you want to link against.
