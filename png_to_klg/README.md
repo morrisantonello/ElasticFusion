@@ -1,5 +1,7 @@
 # png to klg format convertor for ElasticFusion
 
+This is a modified version of the png_to_klg tool by JackyLiu useful to create .klg log files from Kinect One V2 data and bag files.
+
 Convert [TUM RGB-D png dataset](http://vision.in.tum.de/data/datasets/rgbd-dataset/download#freiburg1_desk) to .klg format for [Kintinuous](https://github.com/mp3guy/Kintinuous) and [ElasticFusion](https://github.com/mp3guy/ElasticFusion)
 
 Also work with [ICL-NUIM dataset](https://www.doc.ic.ac.uk/~ahanda/VaFRIC/iclnuim.html) (TUM RGB-D Compatible PNGs)
@@ -56,6 +58,21 @@ All parameters are required.
 
 >For more **scale factor** detail, please reference: 
 >http://vision.in.tum.de/data/datasets/rgbd-dataset/file_formats#intrinsic_camera_calibration_of_the_kinect
+
+# Usage with Kinect One V2#
+Create your association file specifying the number of entries:
+```bash
+python create_association_file.py 8090
+```
+Copy it to your dataset location, which should contain two directories: depth and rgb
+```bash
+cp associations.txt your_dataset_directory
+```
+Run conversion:
+```bash
+cd build
+./pngtoklg -w your_dataset_dir -o ./output.klg
+```
 
 ## Prerequirement##
 Should place **associations.txt** under working directory.
