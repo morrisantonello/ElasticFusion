@@ -72,10 +72,10 @@ Copy it to your dataset location, which should contain two directories: depth an
 ```bash
 cp associations.txt your_dataset_directory
 ```
-Run conversion:
+Run conversion, remember to set the correct scale factor:
 ```bash
 cd build
-./pngtoklg -w your_dataset_dir -o ./output.klg
+./pngtoklg -w your_dataset_dir -o ./output.klg - s 1000
 ```
 
 ## Download ##
